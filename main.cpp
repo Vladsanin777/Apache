@@ -6,8 +6,9 @@
 using namespace std;
 
 void apache(string url){
-	while(true){
-		system(("ab -t 600 -c 1000 -k "+url).c_str());
+	bool error = true;
+	while(error){
+		error = system(("ab -t 600 -c 1000 -k "+url).c_str());
 	}
 	return;
 }
