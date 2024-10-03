@@ -6,9 +6,13 @@
 using namespace std;
 
 void apache(string url){
-	bool error = true;
-	while(error){
-		error = system(("ab -t 600 -c 1000 -k "+url).c_str());
+	while(true){
+		FILE* pipe = popen(("ab -t 1 -c 1000 -k "+url+" &>/dev/null").c_str(), "r");
+		if (pipe) {
+            pclose(pipe);
+        } else {
+            cerr << "Error opening pipe for URL: " << url << endl;
+            break;        }
 	}
 	return;
 }
